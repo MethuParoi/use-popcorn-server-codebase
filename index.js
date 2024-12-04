@@ -23,9 +23,16 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
-    // Send a ping to confirm a successful connection
+    // add a new movie
+    const movieCollection = client.db("use-popcorn").collection("movies");
+
+    router.post("/add-movie", async (req, res) => {
+      const newMovie = req.body;
+      const result = await movieCollection.insertOne(newMovie);
+      res.send(result);
+    });
+
     await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
@@ -40,7 +47,7 @@ run().catch(console.dir);
 //-------------------------------------
 
 // const rootRouter = require("./routes/index");
-// app.use("/api/v1", rootRouter);
+// app.use("/api", rootRouter);
 
 app.get("/", (req, res) => {
   res.send("UsePopCorn server running");
@@ -53,3 +60,6 @@ app.listen(port, (err) => {
   }
   console.log(`listening on port: ${port}`);
 });
+
+
+

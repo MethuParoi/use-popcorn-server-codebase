@@ -1,10 +1,11 @@
-const { MongoClient, ServerApiVersion } = require("mongodb");
 require("dotenv").config();
+const { MongoClient, ServerApiVersion } = require("mongodb");
 const express = require("express");
 const cors = require("cors");
 
 const app = express();
 
+//use middleware
 app.use(express.json());
 app.use(cors());
 
@@ -23,23 +24,23 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
+    // await client.connect();
     // add a new movie
     const movieCollection = client.db("use-popcorn").collection("movies");
 
-    router.post("/add-movie", async (req, res) => {
+    app.post("/add-movie", async (req, res) => {
       const newMovie = req.body;
       const result = await movieCollection.insertOne(newMovie);
       res.send(result);
     });
 
-    await client.db("admin").command({ ping: 1 });
+    // await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
   } finally {
     // Ensures that the client will close when you finish/error
-    await client.close();
+    // await client.close();
   }
 }
 run().catch(console.dir);
@@ -60,6 +61,3 @@ app.listen(port, (err) => {
   }
   console.log(`listening on port: ${port}`);
 });
-
-
-

@@ -63,17 +63,17 @@ async function run() {
     });
 
     //update a movie
-    // app.patch("/update-movie/:id", async (req, res) => {
-    //   const id = req.params.id;
-    //   // Convert id to ObjectId
-    //   const objectId = new ObjectId(id);
-    //   const updatedMovie = req.body;
-    //   const result = await movieCollection.updateOne(
-    //     { _id: objectId },
-    //     { $set: updatedMovie }
-    //   );
-    //   res.send(result);
-    // });
+    app.patch("/update-movie/:id", async (req, res) => {
+      const id = req.params.id;
+      // Convert id to ObjectId
+      const objectId = new ObjectId(id);
+      const updatedMovie = req.body;
+      const result = await movieCollection.updateOne(
+        { _id: objectId },
+        { $set: updatedMovie }
+      );
+      res.send(result);
+    });
 
     // await client.db("admin").command({ ping: 1 });
     console.log(

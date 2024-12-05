@@ -42,25 +42,25 @@ async function run() {
     });
 
     //get a single movie
-    // app.get("/movie/:id", async (req, res) => {
-    //   const id = req.params.id;
+    app.get("/movie/:id", async (req, res) => {
+      const id = req.params.id;
 
-    //   try {
-    //     // Convert id to ObjectId
-    //     const objectId = new ObjectId(id);
-    //     const result = await movieCollection.findOne({ _id: objectId });
+      try {
+        // Convert id to ObjectId
+        const objectId = new ObjectId(id);
+        const result = await movieCollection.findOne({ _id: objectId });
 
-    //     if (result) {
-    //       res.send(result);
-    //       // res.send("Movie found");
-    //     } else {
-    //       res.status(404).send({ message: "Movie not found" });
-    //     }
-    //   } catch (error) {
-    //     console.error("Error fetching movie:", error);
-    //     res.status(400).send({ message: "Invalid movie ID" });
-    //   }
-    // });
+        if (result) {
+          res.send(result);
+          // res.send("Movie found");
+        } else {
+          res.status(404).send({ message: "Movie not found" });
+        }
+      } catch (error) {
+        console.error("Error fetching movie:", error);
+        res.status(400).send({ message: "Invalid movie ID" });
+      }
+    });
 
     //update a movie
     // app.patch("/update-movie/:id", async (req, res) => {

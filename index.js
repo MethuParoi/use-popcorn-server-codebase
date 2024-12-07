@@ -75,6 +75,26 @@ async function run() {
       res.send(result);
     });
 
+    //delete a movie
+    app.delete("/delete-movie/:id", async (req, res) => {
+      const id = req.params.id;
+      // Convert id to ObjectId
+      const objectId = new ObjectId(id);
+      const result = await movieCollection.deleteOne({ _id: objectId });
+      res.send(result);
+    });
+    //--------------------------------------------------
+    //favorite movie collection
+    const favoriteMovieCollection = client
+      .db("use-popcorn")
+      .collection("favoriteMovies");
+
+    app.post("/add-favorite-movie", async (req, res) => {
+      const newFavoriteMovie = req.body;
+      const result = await favoriteMovieCollection.insertOne(newFavoriteMovie);
+      res.send(result);
+    });
+
     // await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"

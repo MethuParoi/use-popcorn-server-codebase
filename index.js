@@ -75,7 +75,8 @@ async function run() {
       res.send(result);
     });
 
-    //delete a movie
+    // Delete a movie
+
     app.delete("/delete-movie/:id", async (req, res) => {
       const id = req.params.id;
       // Convert id to ObjectId
@@ -89,10 +90,68 @@ async function run() {
       .db("use-popcorn")
       .collection("favoriteMovies");
 
-    app.post("/add-favorite-movie", async (req, res) => {
+    //add favorite movie first time
+    app.put("/add-favorite-movie", async (req, res) => {
       const newFavoriteMovie = req.body;
       const result = await favoriteMovieCollection.insertOne(newFavoriteMovie);
       res.send(result);
+    });
+
+    // add movie
+    app.patch("/update-favorite-movie/:id", async (req, res) => {
+      const id = req.params.id;
+      // Convert id to ObjectId
+      const movies = req.body;
+      const result = await favoriteMovieCollection.updateOne(
+        { user_id: id },
+        { $set: movies }
+      );
+      res.send(result);
+    });
+
+    // Delete favorite movie
+    app.delete("/delete-favorite-movie/:id/:mid", async (req, res) => {
+      const userId = req.params.id; // User email
+      const movieId = req.params.mid; // Movie ID to delete
+
+      try {
+        const result = await favoriteMovieCollection.updateOne(
+          { user_id: userId }, // Match user by ID
+          { $pull: { movies: movieId } } // Remove the specific movie ID from the array
+        );
+
+        if (result.modifiedCount > 0) {
+          res.status(200).send({ message: "Movie deleted from favorites" });
+        } else {
+          res.status(404).send({ message: "Movie not found in favorites" });
+        }
+      } catch (error) {
+        console.error("Error deleting favorite movie:", error);
+        res.status(500).send({ message: "Internal server error" });
+      }
+    });
+
+    //get favorite movie
+    app.get("/favorite-movie/:id", async (req, res) => {
+      const id = req.params.id;
+
+      try {
+        // Convert id to ObjectId
+        // const objectId = new ObjectId(id);
+        const result = await favoriteMovieCollection.findOne({
+          user_id: id,
+        });
+
+        if (result) {
+          res.send(result);
+          // res.send("Movie found");
+        } else {
+          res.status(404).send({ message: "favorite movie not found" });
+        }
+      } catch (error) {
+        console.error("Error fetching favorite movie:", error);
+        res.status(400).send({ message: "Invalid favorite movie ID" });
+      }
     });
 
     // await client.db("admin").command({ ping: 1 });

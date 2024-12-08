@@ -41,6 +41,16 @@ async function run() {
       res.send(result);
     });
 
+    //get featured movies
+    app.get("/featured-movies", async (req, res) => {
+      const result = await movieCollection
+        .find({})
+        .sort({ rating: -1 })
+        .limit(6)
+        .toArray();
+      res.send(result);
+    });
+
     //get a single movie
     app.get("/movie/:id", async (req, res) => {
       const id = req.params.id;

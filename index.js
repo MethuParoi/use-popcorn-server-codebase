@@ -46,7 +46,16 @@ async function run() {
       const result = await movieCollection
         .find({})
         .sort({ rating: -1 })
-        .limit(6)
+        .limit(8)
+        .toArray();
+      res.send(result);
+    });
+
+    //get sorted movies
+    app.get("/sorted-movies", async (req, res) => {
+      const result = await movieCollection
+        .find({})
+        .sort({ rating: -1 })
         .toArray();
       res.send(result);
     });

@@ -2,11 +2,26 @@
 
 **Live Demo:** [usePopcorn Live Demo](https://use-popcorn-ph-10.web.app/)
 
+<div align="center">
+
+![Header](https://lrbogqzvnkxhatqgtwtr.supabase.co/storage/v1/object/public/images/use-popcorn-03%20(1).png)
+
+![Header](https://lrbogqzvnkxhatqgtwtr.supabase.co/storage/v1/object/public/images/use-popcorn-02%20(1).png)
+
+</div>
 
 
 ## 📝 Project Purpose
 The Movie Review and Suggestion Website is designed to offer movie enthusiasts a platform to discover new movies, share their opinions, and get personalized recommendations. This project bridges the gap between users searching for the next great film to watch and those who love analyzing and reviewing cinema. Whether you're a casual viewer or a cinephile, this website provides the tools and features to enhance your movie-watching experience.
 
+
+## 🚀  List of Technologies used in the project
+
+- **React.js** - for building a dynamic and responsive user interface
+- **Tailwind CSS** - for styling responsive user interface
+- **React-toastify** - for elegant notifications and alerts
+- **React-icons** - for adding iconography and enhancing the UX
+- **React-Hook-form** - for managing forms
 
 
 ## 🌟 Key Features
@@ -35,9 +50,19 @@ The theme preference is saved to provide a consistent experience across sessions
 
 ## 🚀  NPM Packages used in the project
 
-
 - **React-toastify** - for elegant notifications and alerts
 - **React-icons** - for adding iconography and enhancing the UX
 - **Swiperjs** - for hero slider
 - **React-hook-form** - for managing complex form data
+
+
+## 📂 Installation & Setup
+
+1. Clone the repository:
+   ```bash
+    git clone https://github.com/methuparoi/use-popcorn-server-codebase.git
+    cd project-nixzo
+    npm install
+    npm run dev
+    ```
 
